@@ -1,0 +1,89 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Link",
+			"command": "C:\\MinGW\\bin\\gcc.exe",
+			"args": [
+				"${workspaceFolderBasename}.o",
+				
+				"-static",
+				"-o",
+				"${workspaceFolderBasename}.exe",
+
+				"-lOpengl32",
+				"-lGdi32"
+
+				"-mwindows"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}\\out"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+            },
+			"dependsOn": [
+				"Compile"
+			],
+		},
+
+		{
+			"type": "shell",
+			"label": "Compile",
+			"command": "C:\\MinGW\\bin\\gcc.exe",
+			"args": [
+				"-Isrc",
+
+				"-c",
+				"src\\main.c",
+			
+				"-o",
+				"out\\${workspaceFolderBasename}.o",
+
+				"-g",
+
+				"-Wall",
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"dependsOn": [
+				"Clear Console"
+			]
+		},
+
+		{
+			"type": "shell",
+			"label": "Decode",
+			"command": "objdump",
+			"args": [
+				"-D",
+				
+				"${workspaceFolder}\\out\\${workspaceFolderBasename}.o",
+
+				">",
+				"objfiledmp.txt"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}\\out"
+			},
+			"problemMatcher": [
+				"$gcc"
+			]
+		}, 
+
+		{
+			"type": "shell",
+			"label": "Clear Console",
+			"command": "cls"
+		}
+	]
+}
